@@ -48,6 +48,8 @@ int main()
 
             //FIGLIO
             execl("./server", "server", NULL);
+            
+            perror("Errore execl()!");
             exit(1);
         }
         else{
@@ -73,6 +75,8 @@ int main()
 
             //FIGLIO
             execl("./client", "client", NULL);
+            
+            perror("Errore execl()!");
             exit(1);
         }
         else{
@@ -97,8 +101,8 @@ int main()
     printf("[%d] Deallocazione code\n", getpid());
 
     /* TBD: Deallocazione delle code */
-    msgctl(ok_id, IPC_RMID, 0);
-    msgctl(req_id, IPC_RMID, 0);
+    msgctl(ok_id, IPC_RMID, NULL);
+    msgctl(req_id, IPC_RMID, NULL);
 
 
     return 0;

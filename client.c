@@ -54,12 +54,6 @@ int main()
         msg.type = getpid();
         msg.val = val;
 
-        int result = msgsnd(ok_id, &msg, sizeof(messaggio) - sizeof(long), 0);
-        if(result < 0){
-            perror("Errore msgsnd!");
-            exit(1);
-        }
-
         /* NOTA: sarà la funzione send_sinc() a scambiare i messaggi 
                  "REQUEST TO SEND" e "OK TO SEND" con uno dei server.
         */

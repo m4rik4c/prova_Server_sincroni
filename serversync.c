@@ -34,7 +34,7 @@ void send_sinc(int ok_id, int req_id, messaggio * msg)
 
     printf("[%d] Client: in attesa di ok-to-send...\n", getpid());
 
-    ret = msgrcv(ok_id, &msg_ok, sizeof(messaggio_OTS) - sizeof(long), pid, 0);
+    ret = msgrcv(ok_id, &msg_ok, sizeof(messaggio_OTS) - sizeof(long), getpid(), 0);
 
     if (ret < 0)
     {
@@ -49,6 +49,7 @@ void send_sinc(int ok_id, int req_id, messaggio * msg)
 
     /* TBD: Inviare il messaggio al server */
 
+    long type = msg_ok.type;
     int id_coda = msg_ok.id_coda;
 
     printf("[%d] Client: invio messaggio, coda=%d, type=%ld, valore=%d\n", getpid(), id_coda, msg->type, msg->val);
@@ -92,6 +93,9 @@ void receive_sinc(int msg_id, int ok_id, int req_id, messaggio * msg)
 
 
     /* TBD: Inviare il messaggio OK TO SEND */
+
+    msg_OK.type = msg_REQ.type;
+    msg_OK.id_coda = msg_id;
 
     printf("[%d] Server: invio ok-to-send, type=%ld, id_coda=%d\n", getpid(), msg_OK.type, msg_OK.id_coda);
 
